@@ -62,8 +62,9 @@ namespace ProjectDungRun.Entities
             else
                 currentFrame = 0;
 
-            g.DrawImage(spriteSheet, new Rectangle(new Point(posX - flip * size / 2, posY), new Size(flip * size, size)), (25 * currentFrame), 33*currentAnimation, 25, 32, GraphicsUnit.Pixel);
-            //33 * currentAnimation
+            g.DrawImage(spriteSheet, new Rectangle(new Point(posX - flip * size / 2, posY), new Size(flip * size, size)), (25f * currentFrame), 33*currentAnimation, 25, 32, GraphicsUnit.Pixel);
+           // g.DrawImage(spriteSheet, new Rectangle(new Point(posX, posY), new Size(size, size)), (25f * currentFrame), (32 * currentAnimation), 25, 32, GraphicsUnit.Pixel);
+            
 
         }
 
@@ -85,24 +86,18 @@ namespace ProjectDungRun.Entities
                 case 3:
                     currentLimit = deathFrames;
                     break;
-                    //case 4:
-                    //    currentLimit = deathFrames;
-                    //    break;
-                    //case 5:
-                    //    currentLimit = idleFrames;
-                    //    break;
-                    //case 6:
-                    //    currentLimit = runFrames;
-                    //    break;
-                    //case 7:
-                    //    currentLimit = attackFrames;
-                    //    break;
-                    //case 8:
-                    //    currentLimit = deathFrames;
-                    //    break;
-                    //case 9:
-                    //    currentLimit = deathFrames;
-                    //    break;
+                    case 4:
+                        currentLimit = deathFrames;
+                        break;
+                    case 5:
+                       currentLimit = idleFrames;
+                        break;
+                    case 6:
+                       currentLimit = runFrames;
+                       break;
+                    case 7:
+                        currentLimit = deathFrames;
+                        break;
 
             }
         }
