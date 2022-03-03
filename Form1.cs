@@ -176,6 +176,12 @@ namespace ProjectDungRun
                 MessageBox.Show("Congrats you won");
             }
 
+            //if (Physcs.IsCollideKey(player, new Point(player.dirX, player.dirY)))
+            //{
+            //    MapController.
+            //}
+
+
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -194,6 +200,7 @@ namespace ProjectDungRun
 
             MapController.DrawMap(g);
             player.PlayAnimation(g);
+           
 
 
         }

@@ -7,29 +7,38 @@ using System.IO;
 using System.Drawing;
 using ProjectDungRun.Entities;
 
+
 namespace ProjectDungRun.Controllers
 {
+
     public static class MapController
     {
 
         //public const int mapHeight = 20;
         //public const int mapWidth = 20;
+        //public Entity player;
+
         public const int mapHeight = 15;
         public const int mapWidth = 15;
         public static int cellSize = 31;
         public static int[,] map = new int[mapHeight, mapWidth];
         public static Image spriteSheet;
         public static Image doors;
+        public static Image collect;
         public static List<iscollide> mapObjects;
         public static List<iscollide> mapDoor;
-
+        public static List<iscollide> mapKey;
+        
         public static void Init()
         {
             map = GetMap();
             spriteSheet = new Bitmap(Path.Combine(new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.FullName.ToString(), "Sprites\\Dungeon.png"));
             doors = new Bitmap(Path.Combine(new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.FullName.ToString(), "Sprites\\doors.png"));
+            collect= new Bitmap(Path.Combine(new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.FullName.ToString(), "Sprites\\Collectables.png"));
+           
             mapObjects = new List<iscollide>();
             mapDoor = new List<iscollide>();
+            mapKey = new List<iscollide>();
 
         }
         public static int[,] GetMap()
@@ -40,7 +49,7 @@ namespace ProjectDungRun.Controllers
                {1,6,6,6,6,6,6,6,6,6,6,6,6,6,2,},
                {10,0,0,0,0,0,0,0,0,0,0,0,6,6,7,},
                {10,0,5,5,0,5,0,0,0,0,0,0,5,0,7,},
-               {10,0,5,5,0,5,0,0,0,0,0,0,5,0,7,},
+               {10,0,5,5,0,5,0,0,0,0,0,0,5,15,7,},
                {10,0,6,5,0,5,0,0,0,0,0,0,5,0,7,},
                {10,0,0,6,6,5,0,0,0,5,0,0,5,0,7,},
                {10,0,6,5,0,0,0,0,0,5,0,0,5,0,7,},
@@ -98,7 +107,22 @@ namespace ProjectDungRun.Controllers
 
             };
         }
+        //public static void KeyMap(Graphics g)
+        //{
+        //    for (int i = 0; i < mapWidth; i++)
+        //    {
+        //        for (int j = 0; j < mapHeight; j++)
+        //        {
+        //            if (map[i, j] == 15)
 
+        //            {
+        //                g.DrawImage(collect, new Rectangle(new Point(j * cellSize, i * cellSize), new Size(cellSize, cellSize)), 320, 84, 20, 20, GraphicsUnit.Pixel);
+        //                iscollide mapEntity = new iscollide(new Point(j * cellSize, i * cellSize), new Size(cellSize, cellSize));
+        //                mapKey.Add(mapEntity);
+        //            }
+        //        }
+        //    }
+        //}
         public static void SeedMap(Graphics g)
         {
             for (int i = 0; i < mapWidth; i++)
@@ -157,28 +181,35 @@ namespace ProjectDungRun.Controllers
                         mapDoor.Add(mapEntity);
 
                     }
-                    //if (map[i, j] == 11) LEFT CORNER WALL
-                    //{
-                    //    g.DrawImage(spriteSheet, new Rectangle(new Point(j * cellSize, i * cellSize), new Size(cellSize, cellSize)), 7, 75, 20, 20, GraphicsUnit.Pixel);
-                    //    MapEntity mapEntity = new MapEntity(new Point(j * cellSize, i * cellSize), new Size(cellSize, cellSize));
-                    //    mapObjects.Add(mapEntity);
-                    //}
-                    //{
-                    //    if (map[i, j] == 10)
-                    //    {
-                    //        g.DrawImage(spriteSheet, new Rectangle(new Point(j * cellSize, i * cellSize), new Size(15, 40)), 111, 68, 6, 20, GraphicsUnit.Pixel);
-                    //        MapEntity mapEntity = new MapEntity(new Point(j * cellSize, i * cellSize), new Size(15, 40));
-                    //        mapObjects.Add(mapEntity);
-                    //    }
-                    //    else
-                    //    {
-                    //        g.DrawImage(spriteSheet, new Rectangle(new Point(j * cellSize, i * cellSize), new Size(cellSize, cellSize)), 320, 84, 20, 20, GraphicsUnit.Pixel);
-                    //        MapEntity mapEntity = new MapEntity(new Point(j * cellSize, i * cellSize), new Size(cellSize, cellSize));
-                    //        mapObjects.Add(mapEntity);
-                    //    }
-                    //}
+                    if (map[i, j] == 15)
+                        
+                    {
+                        g.DrawImage(collect, new Rectangle(new Point(j * cellSize, i * cellSize), new Size(24, 14)), 3, 101, 10, 6, GraphicsUnit.Pixel);
+                        iscollide mapEntity = new iscollide(new Point(j * cellSize, i * cellSize), new Size(24, 14));
+                        mapKey.Add(mapEntity);
+                    }
+                        //if (map[i, j] == 11) LEFT CORNER WALL
+                        //{
+                        //    g.DrawImage(spriteSheet, new Rectangle(new Point(j * cellSize, i * cellSize), new Size(cellSize, cellSize)), 7, 75, 20, 20, GraphicsUnit.Pixel);
+                        //    MapEntity mapEntity = new MapEntity(new Point(j * cellSize, i * cellSize), new Size(cellSize, cellSize));
+                        //    mapObjects.Add(mapEntity);
+                        //}
+                        //{
+                        //    if (map[i, j] == 10)
+                        //    {
+                        //        g.DrawImage(spriteSheet, new Rectangle(new Point(j * cellSize, i * cellSize), new Size(15, 40)), 111, 68, 6, 20, GraphicsUnit.Pixel);
+                        //        MapEntity mapEntity = new MapEntity(new Point(j * cellSize, i * cellSize), new Size(15, 40));
+                        //        mapObjects.Add(mapEntity);
+                        //    }
+                        //    else
+                        //    {
+                        //        g.DrawImage(spriteSheet, new Rectangle(new Point(j * cellSize, i * cellSize), new Size(cellSize, cellSize)), 320, 84, 20, 20, GraphicsUnit.Pixel);
+                        //        MapEntity mapEntity = new MapEntity(new Point(j * cellSize, i * cellSize), new Size(cellSize, cellSize));
+                        //        mapObjects.Add(mapEntity);
+                        //    }
+                        //}
 
-                }
+                    }
             }
         }
 
@@ -229,6 +260,10 @@ namespace ProjectDungRun.Controllers
 
                 }
                 MapController.SeedMap(g);
+                //if (Physcs.IsCollideKey(entity, new Point(Entity.dirX, Entity.dirY)))
+                //{
+
+                //}
             }
         }
 
