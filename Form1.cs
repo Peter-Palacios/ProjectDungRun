@@ -12,6 +12,7 @@ using ProjectDungRun.Models;
 using System.IO;
 using ProjectDungRun.Controllers;
 
+
 namespace ProjectDungRun
 {
     public partial class Form1 : Form
@@ -20,6 +21,7 @@ namespace ProjectDungRun
         public Image archeolsheet;
         public Image Dwarfsheet;
         public Entity player;
+        Graphics g;
         public Form1()
         {
             InitializeComponent();
@@ -29,6 +31,12 @@ namespace ProjectDungRun
             KeyDown += new KeyEventHandler(OnPress);
             KeyUp += new KeyEventHandler(OnKeyUp);
             Init();
+        }
+        private void RestartGame()
+        {
+            ProjectDungRun.MenuStart newWindow = new ProjectDungRun.MenuStart();
+            newWindow.Show();
+            this.Hide();
         }
 
         public void OnKeyUp(object sender, KeyEventArgs e)
@@ -143,6 +151,7 @@ namespace ProjectDungRun
         }
         public void Init()
         {
+            
 
              MapController.Init();
 
@@ -154,10 +163,74 @@ namespace ProjectDungRun
             player = new Entity(40, 40, Hero.idleFrames, Hero.runFrames, Hero.attackFrames, Hero.deathFrames, archeolsheet);
             timer1.Start();
         }
+       
+        public bool KeyTaken = false;
+        public bool DoorMsg = false;
+        
+        
         public void Update(object sender, EventArgs e)
         {
+            // Entities.iscollide key iscollide;
 
-            if (!Physcs.IsCollide(player, new Point(player.dirX, player.dirY)))
+
+            if (Physcs.IsCollide(player, new Point(player.dirX, player.dirY)) == 'k' && !KeyTaken)
+            {
+                MapController.KeyVisible = false;
+                KeyTaken = true;
+                MessageBox.Show("You hear a door nearby unlock");
+                //MapController.mapObjects.Remove(MapController.KeyObj);
+
+            }
+
+
+
+            if (Physcs.IsCollide(player, new Point(player.dirX, player.dirY)) == 'd') //&& !KeyTaken)
+                
+            {
+                if (KeyTaken == true)
+                {
+                    KeyTaken = false;
+                    DoorMsg = true;
+                    timer1.Stop();
+                    MessageBox.Show("Great job...");
+                   
+                    RestartGame();
+
+                }
+                if (DoorMsg == false)
+                {
+                    DoorMsg = true;
+                    MessageBox.Show("Door is locked. You hear a rumbling beyond the door");
+                    MessageBox.Show("You realize the rumbling was your stomache...it's been a long day");
+
+                }
+
+
+
+                // g.DrawImage(MapController.spriteSheet, new Rectangle(new Point(player.dirY * MapController.cellSize, player.dirX * MapController.cellSize), new Size(MapController.cellSize, MapController.cellSize)), 256, 193, 20, 20, GraphicsUnit.Pixel);
+
+                //MapController.ClearKey(g, MapController.keyGridX, MapController.keyGridY);
+                //MapController.DrawMap(g);
+
+
+                // KeyTaken = true;
+
+            }
+
+            //if (Physcs.IsCollide(player, new Point(player.dirX, player.dirY)) == 'k') 
+            //{
+                
+
+            //    if (KeyTaken == false)
+            //    {
+            //        KeyTaken = true;
+            //        DoorMsg = true;
+            //        MessageBox.Show("You hear a door nearby unlock. Also pretend like this key doesn't exist afterwards bc the code is ~~a work in progress ~~");
+                    
+            //    }
+            //}
+
+            if (Physcs.IsCollide(player, new Point(player.dirX, player.dirY))=='a')
             {
 
                 if (player.isMoving) 
@@ -169,12 +242,7 @@ namespace ProjectDungRun
             }
             Invalidate();
 
-            if (Physcs.IsCollideNoob(player, new Point(player.dirX, player.dirY)))
-            {
-                
-                timer1.Stop();
-                MessageBox.Show("Congrats you won");
-            }
+           
 
             //if (Physcs.IsCollideKey(player, new Point(player.dirX, player.dirY)))
             //{
@@ -190,7 +258,7 @@ namespace ProjectDungRun
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
+             g = e.Graphics;
 
           //  g.DrawImage(archeolsheet, new PointF(100, 100)); 
 
@@ -199,6 +267,7 @@ namespace ProjectDungRun
             //g.DrawImage(player.spriteSheet, new Rectangle(new Point(player.posX, player.posY), new Size(player.size, player.size)), 20, 0, player.size,player.size, GraphicsUnit.Pixel);
 
             MapController.DrawMap(g);
+            
             player.PlayAnimation(g);
            
 
@@ -209,5 +278,11 @@ namespace ProjectDungRun
         {
 
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+        
     }
 }

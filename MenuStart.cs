@@ -32,6 +32,7 @@ namespace ProjectDungRun
             Form1 obj = new Form1();
             this.Visible = false;
             obj.Show();
+            
         }
     }
 }
