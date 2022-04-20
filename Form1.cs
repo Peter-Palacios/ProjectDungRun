@@ -111,43 +111,7 @@ namespace ProjectDungRun
                     //else player.SetAnimationConfiguration(7);
                     break;
             }
-            //switch (e.KeyCode)
-            //{
-            //    case Keys.W:
-            //        // player.Move(0, -2); <-- when dirx under argument player.move
-            //        player.dirY = -2;
-            //        player.isMoving = true;
-            //        player.SetAnimationConfiguration(1);
-            //        break;
-            //    case Keys.S:
-            //        //  player.Move(0, 2);
-            //        player.dirY = 2;
-            //        player.isMoving = true;
-            //        player.SetAnimationConfiguration(1);
-            //        break;
-            //    case Keys.A:
-            //        // player.Move(-2, 0);
-            //        player.dirX = -2;
-            //        player.isMoving = true;
-            //        player.flip = -1;
-            //        player.SetAnimationConfiguration(1);
-            //        break;
-            //    case Keys.D:
-            //        //player.Move(2, 0);
-            //        player.dirX = 2;
-            //        player.isMoving = true;
-            //        player.flip = 1;
-            //        player.SetAnimationConfiguration(1);
-            //        break;
-            //    case Keys.Space:
-            //        player.dirX = 0;
-            //        player.dirY = 0;
-            //        player.isMoving = false;
-            //        player.SetAnimationConfiguration(2);
-            //        break;
-            //}
-            ////player.isMoving = true;
-            ////player.SetAnimationConfiguration(1);
+           
         }
         public void Init()
         {
@@ -207,28 +171,11 @@ namespace ProjectDungRun
 
 
 
-                // g.DrawImage(MapController.spriteSheet, new Rectangle(new Point(player.dirY * MapController.cellSize, player.dirX * MapController.cellSize), new Size(MapController.cellSize, MapController.cellSize)), 256, 193, 20, 20, GraphicsUnit.Pixel);
-
-                //MapController.ClearKey(g, MapController.keyGridX, MapController.keyGridY);
-                //MapController.DrawMap(g);
-
-
-                // KeyTaken = true;
+                
 
             }
 
-            //if (Physcs.IsCollide(player, new Point(player.dirX, player.dirY)) == 'k') 
-            //{
-                
-
-            //    if (KeyTaken == false)
-            //    {
-            //        KeyTaken = true;
-            //        DoorMsg = true;
-            //        MessageBox.Show("You hear a door nearby unlock. Also pretend like this key doesn't exist afterwards bc the code is ~~a work in progress ~~");
-                    
-            //    }
-            //}
+           
 
             if (Physcs.IsCollide(player, new Point(player.dirX, player.dirY))=='a')
             {
@@ -244,10 +191,7 @@ namespace ProjectDungRun
 
            
 
-            //if (Physcs.IsCollideKey(player, new Point(player.dirX, player.dirY)))
-            //{
-            //    MapController.
-            //}
+            
 
 
         }
@@ -260,11 +204,7 @@ namespace ProjectDungRun
         {
              g = e.Graphics;
 
-          //  g.DrawImage(archeolsheet, new PointF(100, 100)); 
-
-            // g.DrawImage(player.spriteSheet, player.posX, player.posY, new Rectangle(new Point(0, 0), new Size(player.size, player.size)),GraphicsUnit.Pixel); 
-
-            //g.DrawImage(player.spriteSheet, new Rectangle(new Point(player.posX, player.posY), new Size(player.size, player.size)), 20, 0, player.size,player.size, GraphicsUnit.Pixel);
+        
 
             MapController.DrawMap(g);
             
